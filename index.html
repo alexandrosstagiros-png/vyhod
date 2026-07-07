@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВЫХОД — платформа гарантированных рейсов</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2l8 4.5v9L12 22l-8-6.5v-9L12 2z"/>
+        <path d="M8.5 12.5l2.5 2.5 4.5-5"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <div class="brand-name" id="brandName">Выход</div>
+      <div class="brand-tag" id="brandTag">платформа гарантированных рейсов</div>
+    </div>
+  </div>
+
+  <nav class="role-switch" id="roleSwitch" aria-label="Переключение роли">
+    <button class="role-btn active" data-view="dispatch">
+      <span class="role-ico">🗼</span> Диспетчерская
+    </button>
+    <button class="role-btn" data-view="driver">
+      <span class="role-ico">🚚</span> Водитель
+    </button>
+    <button class="role-btn" data-view="client">
+      <span class="role-ico">🏢</span> Заказчик
+    </button>
+  </nav>
+
+  <div class="topbar-right">
+    <div class="live-dot" title="Онлайн"></div>
+    <div class="clock" id="clock">05:12</div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ═══════════════ ДИСПЕТЧЕРСКАЯ ═══════════════ -->
+  <section id="view-dispatch" class="view active">
+    <div class="kpi-row" id="dispatchKpis"></div>
+
+    <div class="dispatch-grid">
+      <div class="col-main">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Радар выхода <span class="muted-sub">· сегодня, погрузки 05:30–09:00</span></h2>
+              <p class="panel-sub">Система следит за всеми. Вы работаете только с теми, кто подсвечен.</p>
+            </div>
+            <button class="btn btn-primary" id="simBtn">▶&nbsp; Прожить утро</button>
+          </div>
+          <div class="trip-list-head">
+            <span>Погрузка</span><span>Заказчик · маршрут</span><span>Водитель</span><span>Цепочка выхода</span><span>Риск срыва</span><span></span>
+          </div>
+          <div id="tripList" class="trip-list"></div>
+        </div>
+      </div>
+
+      <div class="col-side">
+        <div class="panel">
+          <div class="panel-head compact">
+            <h3>🔥 Горячий резерв</h3>
+            <span class="pill pill-green" id="standbyCount"></span>
+          </div>
+          <p class="panel-sub">Оплачиваемая скамейка. Замена за минуты, а не часы.</p>
+          <div id="standbyList" class="standby-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head compact">
+            <h3>Лента событий</h3>
+            <span class="pill pill-neutral">live</span>
+          </div>
+          <div id="eventFeed" class="event-feed"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ВОДИТЕЛЬ ═══════════════ -->
+  <section id="view-driver" class="view">
+    <div class="driver-layout">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" id="phoneScreen"></div>
+      </div>
+      <aside class="driver-aside">
+        <h2>Приложение водителя</h2>
+        <p>Водитель видит не «работу», а <b>карьеру и уважение</b>: уровень мастерства, серию безупречных рейсов, бонусы и наставника на связи.</p>
+        <ul class="aside-list">
+          <li><b>Цепочка выхода</b> — «Выйду» вечером, «Я встал» и «Выезжаю» утром. Два касания вместо звонков диспетчера.</li>
+          <li><b>Честное «не смогу»</b> — предупредил заранее → без штрафа и с уважением. Срыв молча — единственный смертный грех.</li>
+          <li><b>Лестница сложности</b> — новичок физически не получит маршрут не по уровню. Никто больше не «сгорает» в первый день.</li>
+          <li><b>Наставник</b> — живой человек, который отвечает за твою прикатку. Роль «диспетчера-психолога», встроенная в продукт.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ЗАКАЗЧИК ═══════════════ -->
+  <section id="view-client" class="view">
+    <div class="client-head">
+      <div class="client-logo">M</div>
+      <div>
+        <h2>МЕТРО Кэш энд Керри <span class="muted-sub">· кабинет заказчика</span></h2>
+        <p class="panel-sub">Тариф «Максимум»: гарантия выхода 99,9% · терморежим 2–4&nbsp;°C · работа с тарой</p>
+      </div>
+      <div class="sla-badge" id="slaBadge">
+        <div class="sla-badge-title">Гарантия выхода</div>
+        <div class="sla-badge-value">100%</div>
+        <div class="sla-badge-sub">срыв закрываем резервом<br>или платим неустойку</div>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="clientKpis"></div>
+
+    <div class="client-grid">
+      <div class="panel">
+        <div class="panel-head compact">
+          <h3>Рейсы сегодня — live</h3>
+          <span class="pill pill-neutral" id="clientTripCount"></span>
+        </div>
+        <div id="clientTrips" class="client-trips"></div>
+      </div>
+
+      <div class="col-side">
+        <div class="panel">
+          <div class="panel-head compact"><h3>Выход на рейс, 8 недель</h3></div>
+          <div id="trendChart"></div>
+          <p class="panel-sub center">56 дней без единого срыва — все угрозы закрыты резервом</p>
+        </div>
+        <div class="panel">
+          <div class="panel-head compact"><h3>Инциденты и компенсации</h3></div>
+          <div id="incidentList" class="incident-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Выдвижная карточка рейса -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer"></aside>
+
+<!-- Модалка выбора резерва -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
